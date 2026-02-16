@@ -72,6 +72,7 @@ foreign {
     func DrawRectangle(x: Int32, y: Int32, width: Int32, height: Int32, color: Color): Unit
     
     //-----\\
+    func ClearBackground(color: Color): Unit
     func BeginDrawing(): Unit
     func EndDrawing(): Unit
     func BeginMode2D(camera: Camera2D): Unit
@@ -96,7 +97,7 @@ foreign {
     func LoadShader(vsFileName: CString, fsFileName: CString): Shader
     func LoadShaderFromMemory(vsCode: CString, fsCode: CString): Shader
     //-----//
-    
+
     //-----\\
     func IsShaderValid(shader: Shader): Bool
     func GetShaderLocation(Shader: Shader, uniformName: CString): Int32
@@ -106,6 +107,9 @@ foreign {
     func SetShaderValueMatrix(shader: Shader, locIndex: Int32, mat: Matrix): Unit
     func SetShaderValueTexture(shader: Shader, locIndex: Int32, texture: Texture): Unit
     func UnloadShader(shader: Shader): Unit
+    //-----//
+
+    //-----\\
     func GetScreenToWorldRay(position: Vector2, camera: Camera3D): Ray
     func GetScreenToWorldRayEx(position: Vector2, camera: Camera3D, width: Int32, height: Int32): Ray
     func GetWorldToScreen(position: Vector3, camera: Camera3D): Vector2
@@ -116,13 +120,170 @@ foreign {
     func GetCameraMatrix2D(camera: Camera2D): Matrix
     //-----//
 
+    //-----\\
     func SetTargetFPS(fps: Int32): Unit
     func GetFrameTime(): Float32
+    func GetTime(): Float64
+    func GetFPS(): Int32
+    //-----//
 
+    //-----\\
+    func SwapScreenBuffer(): Unit
+    func PollInputEvents(): Unit
+    func WaitTime(seconds: Float64): Unit
+    func SetRandomSeed(seed: UInt32): Unit
+    func GetRandomValue(min: Int32, max: Int32): Int32
+    func LoadRandomSequence(count: UInt32, min: Int32, max: Int32): CPointer<Int32>
+    func UnloadRandomSequence(sequence: CPointer<Int32>): Unit
+    //-----//
 
-    func ClearBackground(color: Color): Unit
-    //-----------------------------//
+    //-----\\
+    func TakeScreenshot(filename: CString): Unit
+    func SetConfigFlags(flags: UInt32): Unit
+    func OpenURL(url: CString): Unit
+    //-----//
     
+    //-----\\
+    func SetTraceLogLevel(logLevel: Int32): Unit
+    func TraceLog(logLevel: Int32, text: CString, ...): Unit
+    func SetTraceLogCallback(callback: CPointer<Unit>): Unit
+    //-----//
+    //-----------------------------//
+
+    //-----------------------------\\
+    //-----\\
+    func MemAlloc(size: UInt32): CPointer<Unit>
+    func MemRealloc(ptr: CPointer<Unit>, size: UInt32): CPointer<Unit>
+    func MemFree(ptr: CPointer<Unit>): Unit
+    //-----//
+
+    //-----\\
+    func LoadFileData(fileName: CString, dataSize: CPointer<Int32>): CString
+    func UnloadFileData(data: CString): Unit
+    func SaveFileData(filename: CString, data: CPointer<Unit>, dataSize: Int32): Bool
+    func ExportDataAsCode(data: CString, dataSize: Int32, fileName: CString): Bool
+    func LoadFileText(fileName: CString): CString
+    func UnloadFileText(text: CString): Unit
+    func SaveFileText(fileName: CString, text: CString): Bool
+    //-----//
+
+    //-----\\
+    func SetLoadFileDataCallback(callback: CPointer<Unit>): Unit
+    func SetSaveFileDataCallback(callback: CPointer<Unit>): Unit
+    func SetLoadFileTextCallback(callback: CPointer<Unit>): Unit
+    func SetSaveFileTextCallback(callback: CPointer<Unit>): Unit
+    //-----//
+
+    //-----\\
+    func FileRename(fileName: CString, fileRename: CString): Int32
+    func FileRemove(fileName: CString): Int32
+    func FileCopy(srcPath: CString, dstPath: CString): Int32
+    func FileMove(srcPath: CString, dstPath: CString): Int32
+    func FileTextReplace(fileName: CString, search: CString, replacement: CString): Int32
+    func FileTextFindIndex(fileName: CString, search: CString): Int32
+    func FileExists(fileName: CString): Bool
+    func DirectoryExists(dirPath: CString): Bool
+    func IsFileExtension(fileName: CString, ext: CString): Bool
+    func GetFileLength(fileName: CString): Int32
+    func GetFileModTime(fileName: CString): Int64
+    func GetFileExtension(fileName: CString): CString
+    func GetFileName(filePath: CString): CString
+    func GetFileNameWithoutExt(filePath: CString): CString
+    func GetDirectoryPath(filePath: CString): CString
+    func GetPrevDirectoryPath(dirPath: CString): CString
+    func GetWorkingDirectory(): CString
+    func GetApplicationDirectory(): CString
+    func MakeDirectory(dirPath: CString): Int32
+    func ChangeDirectory(dirPath: CString): Bool
+    func IsPathFile(path: CString): Bool
+    func IsFileNameValid(fileName: CString): Bool
+    func LoadDirectoryFiles(dirPath: CString): FilePathList
+    func LoadDirectoryFilesEx(basePath: CString, filter: CString, scanSubdirs: Bool): FilePathList
+    func UnloadDirectoryFiles(files: FilePathList): Unit
+    func LoadDroppedFiles(): FilePathList
+    func UnloadDroppedFiles(files: FilePathList): Unit
+    func GetDirectoryFileCount(dirPath: CString): UInt32
+    func GetDirectoryFileCountEx(dirPath: CString, filter: CString, scanSubdirs: Bool): UInt32
+    //-----//
+
+    //-----\\
+    func CompressData(data: CString, dataSize: Int32, compDataSize: CPointer<Int32>): CString
+    func DecompressData(compData: CString, compDataSize: Int32, dataSize: CPointer<Int32>): CString
+    func EncodeDataBase64(data: CString, dataSize: Int32, outputSize: CPointer<Int32>): CString
+    func DecodeDataBase64(text: CString, outputSize: CPointer<Int32>): CString
+    func ComputeCRC32(data: CString, dataSize: Int32): UInt32
+    func ComputeMD5(data: CString, dataSize: Int32): CPointer<UInt32>
+    func ComputerSHA1(data: CString, dataSize: Int32): CPointer<UInt32>
+    func ComputerSHA256(data: CString, dataSize: Int32): CPointer<UInt32>
+    //-----//
+
+    //-----\\
+    func LoadAutomationEventList(filename: CString): AutomationEventList
+    func UnloadAutomationEventList(list: AutomationEventList): Unit
+    func ExportAutomationEventList(list: AutomationEventList, fileName: CString): Bool
+    func SetAutomationEventList(list: CPointer<AutomationEventList>): Unit
+    func SetAutomationEventBaseFrame(frame: Int32): Unit
+    func StartAutomationEventRecording(): Unit
+    func StopAutomationEventRecording(): Unit
+    func PlayAutomationEvent(event: AutomationEvent): Unit
+    //-----//
+    //-----------------------------//
+
+
+    //-----------------------------\\
+    //-----\\
+    func IsKeyPressed(key: Int32): Bool
+    func IsKeyPressedRepeat(key: Int32): Bool
+    func IsKeyDown(key: Int32): Bool
+    func IsKeyReleased(key: Int32): Bool
+    func IsKeyUp(key: Int32): Bool
+    func GetKeyPressed(): Int32
+    func GetCharPressed(): Int32
+    func GetKeyName(key: Int32): CString
+    func SetExitKey(key: Int32): Unit
+    //-----//
+
+    //-----\\
+    func IsGamepadAvailable(gamepad: Int32): Bool
+    func GetGamepadName(gamepad: Int32): CString
+    func IsGamePadButtonPressed(gamepad: Int32, button: Int32): Bool
+    func IsGamepadButtonDown(gamepad: Int32, button: Int32): Bool
+    func IsGamepadButtonReleased(gamepad: Int32, button: Int32): Bool
+    func IsGamepadButtonUp(gamepad: Int32, button: Int32): Bool
+    func GetGamepadButtonPressed(): Int32
+    func GetGamepadAxisCount(gamepad: Int32): Int32
+    func GetGamepadAxisMovement(gamepad: Int32, axis: Int32): Float32
+    func SetGamepadMappings(mappings: CString): Int32
+    func SetGamepadVibration(gamepad: Int32, leftMotor: Float32, rightMotor: Float32, duration: Float32): Unit
+    //-----//
+
+    //-----\\
+    func IsMouseButtonPressed(button: Int32): Bool
+    func IsMouseButtonDown(button: Int32): Bool
+    func IsMouseButtonReleased(button: Int32): Bool
+    func IsMouseButtonUp(button: Int32): Bool
+    func GetMouseX(): Int32
+    func GetMouseY(): Int32
+    func GetMousePosition(): Vector2
+    func GetMouseDelta(): Vector2
+    func SetMousePosition(x: Int32, y: Int32): Unit
+    func SetMouseOffset(offsetX: Int32, offsetY: Int32): Unit
+    func SetMouseScale(scaleX: Float32, scaleY: Float32): Unit
+    func GetMouseWheelMove(): Float32
+    func GetMouseWheelMoveV(): Vector2
+    func SetMouseCursor(cursor: Int32): Unit
+    //-----//
+
+    //-----\\
+    
+    //-----//
+
+    //-----------------------------//
+
+    //-----\\
+    
+    //-----//
+
     //-----------------------------\\
     //-----------------------------//
 }

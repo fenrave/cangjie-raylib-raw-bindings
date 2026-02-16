@@ -185,3 +185,21 @@ package cangjieraylib
     var scale = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
     var scaleIn = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
 }
+
+@C struct FilePathList {
+    var count: UInt32 = 0
+    var paths: CPointer<CString> = unsafe { zeroValue<CPointer<CString>>() }
+}
+
+@C struct AutomationEvent {
+    var frame: UInt32 = 0
+    //uppercased because 'type' is a reserved keyword
+    var Type: UInt32 = 0
+    var params = VArray<Int32, $4>(repeat: unsafe { zeroValue<Int32>() })
+}
+
+@C struct AutomationEventList {
+    var capacity: UInt32 = 0
+    var count: UInt32 = 0
+    var events = CPointer<AutomationEventList>()
+}
