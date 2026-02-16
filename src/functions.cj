@@ -68,13 +68,12 @@ foreign {
     //----------------------------//
     
     //----------------------------\\
-    func SetTargetFPS(fps: Int32): Unit
     func DrawRectangleRec(rectangle: Rectangle, color: Color): Unit
     func DrawRectangle(x: Int32, y: Int32, width: Int32, height: Int32, color: Color): Unit
-
+    
+    //-----\\
     func BeginDrawing(): Unit
     func EndDrawing(): Unit
-
     func BeginMode2D(camera: Camera2D): Unit
     func EndMode2D(): Unit
     func BeginMode3D(camera: Camera3D): Unit
@@ -87,7 +86,39 @@ foreign {
     func EndBlendMode(): Unit
     func BeginScissorMode(x: Int32, y: Int32, width: Int32, height: Int32): Unit
     func EndScissorMode(): Unit
-    func BeginVrStereoMode(): Unit
+    func BeginVrStereoMode(config: VrStereoConfig): Unit
+    func EndVrStereoMode(): Unit
+    //-----//
+
+    //-----\\
+    func LoadVrStereoConfig(device: VrDeviceInfo): VrStereoConfig
+    func UnloadVrStereoConfig(config: VrStereoConfig): Unit
+    func LoadShader(vsFileName: CString, fsFileName: CString): Shader
+    func LoadShaderFromMemory(vsCode: CString, fsCode: CString): Shader
+    //-----//
+    
+    //-----\\
+    func IsShaderValid(shader: Shader): Bool
+    func GetShaderLocation(Shader: Shader, uniformName: CString): Int32
+    func GetShaderLocationAttrib(shader: Shader, attribName: CString): Int32
+    func SetShaderValue(shader: Shader, locIndex: Int32, value: CPointer<Unit>, uniformType: Int32): Unit
+    func SetShaderValueV(shader: Shader, locIndex: Int32, value: CPointer<Unit>, uniformType: Int32, count: Int32): Unit
+    func SetShaderValueMatrix(shader: Shader, locIndex: Int32, mat: Matrix): Unit
+    func SetShaderValueTexture(shader: Shader, locIndex: Int32, texture: Texture): Unit
+    func UnloadShader(shader: Shader): Unit
+    func GetScreenToWorldRay(position: Vector2, camera: Camera3D): Ray
+    func GetScreenToWorldRayEx(position: Vector2, camera: Camera3D, width: Int32, height: Int32): Ray
+    func GetWorldToScreen(position: Vector3, camera: Camera3D): Vector2
+    func GetWorldToScreenEx(position: Vector3, camera: Camera3D, width: Int32, height: Int32): Vector2
+    func GetWorldToScreen2d(position: Vector2, camera: Camera2D): Vector2
+    func GetScreenToWorld2d(position: Vector2, camera: Camera2D): Vector2
+    func GetCameraMatrix(camera: Camera3D): Matrix
+    func GetCameraMatrix2D(camera: Camera2D): Matrix
+    //-----//
+
+    func SetTargetFPS(fps: Int32): Unit
+    func GetFrameTime(): Float32
+
 
     func ClearBackground(color: Color): Unit
     //-----------------------------//

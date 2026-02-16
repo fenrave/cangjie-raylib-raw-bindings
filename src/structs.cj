@@ -84,6 +84,22 @@ package cangjieraylib
     }
 }
 
+@C struct Ray {
+    var position: Vector3 = Vector3(0.0,0.0,0.0)
+    var direction: Vector3 = Vector3(0.0,0.0,0.0)
+    init(p: Vector3, d: Vector3) {
+        position = p
+        direction = d
+    }
+}
+
+@C struct RayCollision {
+    var hit: Bool = false
+    var distance: Float32 = 0.0
+    var point: Vector3 = Vector3(0.0,0.0,0.0)
+    var normal: Vector3 = Vector3(0.0,0.0,0.0)
+}
+
 @C struct Camera2D {
     var offset: Vector2 = Vector2(0.0, 0.0)
     var target: Vector2 = Vector2(0.0, 0.0)
@@ -145,4 +161,27 @@ package cangjieraylib
 @C struct Shader {
     var id: UInt32 = 0
     var locs: CPointer<Int32> = CPointer<Int32>()
+}
+
+@C struct VrDeviceInfo {
+    var hResolution: Int32 = 0
+    var vResolution: Int32 = 0
+    var hScreenSize: Float32 = 0.0
+    var vScreenSize: Float32 = 0.0
+    var eyeToScreenDistance = 0.0
+    var lensSeparationDistance = 0.0
+    var interpupillaryDistance = 0.0
+    var lensDistortionValues = VArray<Float32, $4>(repeat: unsafe { zeroValue<Float32>() })
+    var chromaAbcorrection = VArray<Float32, $4>(repeat: unsafe { zeroValue<Float32>() })
+}
+
+@C struct VrStereoConfig {
+    var projection = VArray<Matrix, $2>(repeat: unsafe { zeroValue<Matrix>() })
+    var viewOffset = VArray<Matrix, $2>(repeat: unsafe { zeroValue<Matrix>() })
+    var leftLensCenter = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
+    var rightLensCenter = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
+    var leftScreenCenter = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
+    var rightScreenCenter = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
+    var scale = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
+    var scaleIn = VArray<Float32, $2>(repeat: unsafe { zeroValue<Float32>() })
 }
