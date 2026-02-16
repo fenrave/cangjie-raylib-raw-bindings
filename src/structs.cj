@@ -146,6 +146,14 @@ package cangjieraylib
     var format: Int32 = 0
 }
 
+@C struct Texture2D {
+    var id: UInt32 = 0
+    var width: Int32 = 0
+    var height: Int32 = 0
+    var mipmaps: Int32 = 0
+    var format: Int32 = 0
+}
+
 @C struct RenderTexture {
     var id: UInt32 = 0
     var texture: Texture = Texture()

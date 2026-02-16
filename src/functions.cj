@@ -68,9 +68,6 @@ foreign {
     //----------------------------//
     
     //----------------------------\\
-    func DrawRectangleRec(rectangle: Rectangle, color: Color): Unit
-    func DrawRectangle(x: Int32, y: Int32, width: Int32, height: Int32, color: Color): Unit
-    
     //-----\\
     func ClearBackground(color: Color): Unit
     func BeginDrawing(): Unit
@@ -275,15 +272,75 @@ foreign {
     //-----//
 
     //-----\\
-    
+    func GetTouchX(): Int32
+    func GettouchY(): Int32
+    func GetTouchPosition(index: Int32): Vector2
+    func GetTouchPointId(index: Int32): Int32
+    func GetTouchPointCount(): Int32
     //-----//
 
+    //-----\\
+    func SetGesturesEnabled(flags: UInt32): Unit
+    func IsGestureDetected(gesture: UInt32): Bool
+    func GetGestureDetected(): Int32
+    func GetGestureHoldDuration(): Float32
+    func GetGestureDragVector(): Vector2
+    func GetGestureDragAngle(): Float32
+    func GetGesturePinchAngle(): Float32
+    //-----//
+
+
+    //-----\\
+    func UpdateCamera(camera: CPointer<Camera3D>, mode: Int32): Unit
+    func UpdateCameraPro(camera: CPointer<Camera3D>, movement: Vector3, rotation: Vector3, zoom: Float32): Unit
+    //-----//
     //-----------------------------//
 
     //-----\\
-    
+    func SetShapesTexture(texture: Texture2D, source: Rectangle): Unit
+    func GetShapesTexture(): Texture2D
+    func GetShapesTextureRectangle(): Rectangle
     //-----//
 
+    //-----\\
+    func DrawPixel(posX: Int32, posY: Int32, color: Color): Unit
+    func DrawPixelV(position: Vector2, color: Color): Unit
+    func DrawLine(startPosX: Int32, startPosY: Int32, endPosX: Int32, endPosY: Int32, color: Color): Unit
+    func DrawLineV(startPos: Vector2, endPos: Vector2, color: Color): Unit
+    func DrawLineEx(startPos: Vector2, endPos: Vector2, thick: Float32, color: Color): Unit
+    func DrawLineStrip(points: CPointer<Vector2>, pointCount: Int32, color: Color): Unit
+    func DrawLineBezier(startPos: Vector2, endPos: Vector2, thick: Float32, color: Color): Unit
+    func DrawLineDashed(startPos: Vector2, endPos: Vector2, dashSize: Int32, spaceSize: Int32, color: Color): Unit
+    func DrawCircle(centerX: Int32, centerY: Int32, radius: Float32, color: Color): Unit
+    func DrawCircleSector(center: Vector2, radius: Float32, startAngle: Float32, endAngle: Float32, segments: Int32, color: Color): Unit
+    func DrawCircleSectorLines(center: Vector2, radius: Float32, startAngle: Float32, endAngle: Float32, segments: Int32, color: Color): Unit
+    func DrawCircleGradient(centerX: Int32, centerY: Int32, radius: Float32, inner: Color, outer: Color): Unit
+    func DrawCircleV(center: Vector2, radius: Float32, color: Color): Unit
+    func DrawCircleLines(centerX: Int32, centerY: Int32, radius: Float32, color: Color): Unit
+    func DrawEllipse(centerX: Int32, centerY: Int32, radiusH: Float32, radiusV: Float32, color: Color): Unit
+    func DrawEllipseV(center: Vector2, radiusH: Float32, radiusV: Float32, color: Color): Unit
+    func DrawEllipseLines(centerX: Int32, centerY: Int32, radiusH: Float32, radiusV: Float32, color: Color): Unit
+    func DrawEllipseLinesV(center: Vector2, radiusH: Float32, radiusV: Float32, color: Color): Unit
+    func DrawRing(center: Vector2, innerRadius: Float32, outerRadius: Float32, startAngle: Float32, endAngle: Float32, segments: Int32, color: Color): Unit
+    func DrawRingLines(center: Vector2, innerRadius: Float32, outerRadius: Float32, startAngle: Float32, endAngle: Float32, segments: Int32, color: Color): Unit
+    func DrawRectangle(posX: Int32, posY: Int32, width: Int32, height: Int32, color: Color): Unit
+    func DrawRectangleV(position: Vector2, Size: Vector2, color: Color): Unit
+    func DrawRectangleRec(rec: Rectangle, color: Color): Unit
+    func DrawRectanglePro(rec: Rectangle, origin: Vector2, rotation: Float32, color: Color): Unit
+    func DrawRectangleGradientV(posX: Int32, posY: Int32, width: Int32, height: Int32, top: Color, bottom: Color): Unit
+    func DrawRectangleGradientH(posX: Int32, posY: Int32, width: Int32, height: Int32, right: Color, left: Color): Unit
+    func DrawRectangleGradientEx(rec: Rectangle, topLeft: Color, bottomLeft: Color, bottomRight: Color, topRight: Color): Unit
+    func DrawRectangleLines(posX: Int32, posY: Int32, width: Int32, height: Int32, color: Color): Unit
+    func DrawRectangleRounded(rec: Rectangle, roundness: Float32, segments: Int32, color: Color): Unit
+    func DrawRectangleRoundedLines(rec: Rectangle, lineThick: Float32, color: Color): Unit
+    func DrawRectangleRoundedLinesEx(rec: Rectangle, roundness: Float32, segments: Int32, lineThick: Float32, color: Color): Unit
+    func DrawTriangle(v1: Vector2, v2: Vector2, v3: Vector2, color: Color): Unit
+    //-----//
+
+    //-----\\
+    //-----//
+    //-----\\
+    //-----//
     //-----------------------------\\
     //-----------------------------//
 }
