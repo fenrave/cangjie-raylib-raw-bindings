@@ -1,5 +1,17 @@
 package cangjieraylib
 
+/*
+
+	All structs were added recursively as I wrote out the functions, there might be some inconsistent formatting that needs to be rectified.
+	There may also be missing(?) structs, but all of the ones that the functions depend on are in here.
+
+	Structs with proper initializers are ones I've "personally" deemed to be ones meant to be constructed by the end user, as I didn't want to write out them all out.
+	Presently I am unaware of a better way to "quickly" initialize a struct, as far as I can tell, ->
+	-> you're supposed to either turn them into a public function or just do the initializer thing.
+
+*/
+
+
 @C struct Color {
 	var r: UInt8 = 0
 	var g: UInt8 = 0
@@ -149,7 +161,7 @@ type Quaternion = Vector4
 type Camera = Camera3D
 
 @C struct Image {
-	var data: CPointer<Unit> = CPointer<Unit>()
+	var data = CPointer<Unit>()
 	var width: Int32 = 0
 	var height: Int32 = 0
 	var mipmaps: Int32 = 0

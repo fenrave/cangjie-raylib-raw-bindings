@@ -1,5 +1,17 @@
 package cangjieraylib.defs
 
+/**
+
+	Due to constraints with macros & cangjie enums, it is far easier to represent C enums as structs, or some kind of object that can retain info.
+	Ideally the compiler should pick up on these values being effectively "constant," and be pre-processed into their number, rather than some indirection to the struct value.
+
+	Formatting is a little wonky because i changed from typecasting and just assigned the value directly to i32.
+
+	These are also stored in a separate file to avoid leaking into the intellisense autocomplete.
+
+*/
+
+
 public struct __TraceLog_Enums {
 	public let ALL: Int32 = 0
 	public let TRACE: Int32 = 1

@@ -1,5 +1,9 @@
 package cangjieraylib
-//rcore
+/*
+
+	Includes all functions, in order(besides some) of the raylib.h typedefs.
+
+*/
 foreign {
 	//-----------------------------\\
 	//-----\\

@@ -2,6 +2,10 @@ package cangjieraylib
 
 import cangjieraylib.defs.*
 
+/*
+    see enumdefs for comments
+*/
+
 
 public let Keyboard = __Keyboard_Enum()
 
