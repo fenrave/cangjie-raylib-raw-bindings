@@ -49,6 +49,19 @@ package cangjieraylib
 	}
 }
 
+@C struct Vector4 {
+	var x: Float32 = 0.0
+	var y: Float32 = 0.0
+	var z: Float32 = 0.0
+	var w: Float32 = 0.0
+	init(X: Float32, Y: Float32, Z: Float32, W: Float32) {
+		x = X
+		y = Y
+		z = Z
+		w = W
+	}
+}
+
 @C struct Matrix {
 	var m0: Float32
 	var m1: Float32
@@ -146,13 +159,8 @@ package cangjieraylib
 	var format: Int32 = 0
 }
 
-@C struct Texture2D {
-	var id: UInt32 = 0
-	var width: Int32 = 0
-	var height: Int32 = 0
-	var mipmaps: Int32 = 0
-	var format: Int32 = 0
-}
+type Texture2D = Texture
+type TextureCubemap = Texture
 
 @C struct RenderTexture {
 	var id: UInt32 = 0
@@ -160,15 +168,29 @@ package cangjieraylib
 	var depth: Texture = Texture()
 }
 
-@C struct RenderTexture2D {
-	var id: UInt32 = 0
-	var texture: Texture = Texture()
-	var depth: Texture = Texture()
-}
+type RenderTexture2D = RenderTexture
 
 @C struct Shader {
 	var id: UInt32 = 0
 	var locs = CPointer<Int32>()
+}
+
+@C struct NPatchInfo {
+	var source: Rectangle = Rectangle(0.0,0.0,0.0,0.0)
+	var left: Int32 = 0
+	var top: Int32 = 0
+	var right: Int32 = 0
+	var bottom: Int32 = 0
+	var layout: Int32 = 0
+
+	init(Source: Rectangle, Left: Int32, Top: Int32, Right: Int32, Bottom: Int32, Layout: Int32) {
+	source = Source
+	left = Left
+	top = Top
+	right = Right
+	bottom = Bottom
+	layout = Layout
+	}
 }
 
 @C struct VrDeviceInfo {

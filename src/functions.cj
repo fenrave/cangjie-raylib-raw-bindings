@@ -2,6 +2,7 @@ package cangjieraylib
 //rcore
 foreign {
 	//-----------------------------\\
+	//-----\\
 	func InitWindow(width: Int32, height: Int32, title: CString): Unit
 	func CloseWindow(): Unit
 	func WindowShouldClose(): Bool
@@ -20,7 +21,8 @@ foreign {
 	func MaximizeWindow(): Unit
 	func MinimizeWindow(): Unit
 	func RestoreWindow(): Unit
-
+	//-----//
+	
 	//-----\\
 	func SetWindowIcon(image: Image): Unit
 	func SetWindowIcons(image: CPointer<Image>, count: Int32): Unit
@@ -64,9 +66,9 @@ foreign {
 	func IsCursorHidden(): Bool
 	func IsCursorOnScreen(): Bool
 	//-----//
-
 	//----------------------------//
 	
+
 	//----------------------------\\
 	//-----\\
 	func ClearBackground(color: Color): Unit
@@ -379,6 +381,8 @@ foreign {
 	func GetCollisionRec(rec1: Rectangle, rec2: Rectangle): Rectangle
 	//-----//
 	//-----------------------------//
+
+
 	//-----------------------------\\
 	//-----\\
 	func LoadImage(fileName: CString): Image
@@ -445,14 +449,167 @@ foreign {
 	//-----//
 
 	//-----\\
+	func ImageClearBackground(dst: CPointer<Image>, color: Color): Unit
+	func ImageDrawPixel(dst: CPointer<Image>, posX: Int32, posY: Int32, color: Color): Unit
+	func ImageDrawPixelV(dst: CPointer<Image>, posX: Int32, posY: Int32, color: Color): Unit
+	func ImageDrawLine(dst: CPointer<Image>, centerX: Int32, centerY: Int32, radius: Int32, color: Color): Unit
+	func ImageDrawLineV(dst: CPointer<Image>, start: Vector2, end: Vector2, color: Color): Unit
+	func ImageDrawLineEx(dst: CPointer<Image>, start: Vector2, end: Vector2, thick: Int32, color: Color): Unit
+	func ImageDrawCircle(dst: CPointer<Image>, centerX: Int32, centerY: Int32, radius: Int32, color: Color): Unit
+	func ImageDrawCircleV(dst: CPointer<Image>, center: Vector2, radius: Int32, color: Color): Unit
+	func ImageDrawCircleLines(dst: CPointer<Image>, centerX: Int32, centerY: Int32, radius: Int32, color: Color): Unit
+	func ImageDrawCircleLinesV(dst: CPointer<Image>, center: Vector2, radius: Int32, color: Color): Unit
+	func ImageDrawRectangle(dst: CPointer<Image>, posX: Int32, posY: Int32, width: Int32, height: Int32, color: Color): Unit
+	func ImageDrawRectangleV(dst: CPointer<Image>, position: Vector2, size: Vector2, color: Color): Unit
+	func ImageDrawRectangleRec(dst: CPointer<Image>, rec: Rectangle, color: Color): Unit
+	func ImageDrawRectangleLines(dst: CPointer<Image>, rec: Rectangle, thick: Int32, color: Color): Unit
+	func ImageDrawTriangle(dst: CPointer<Image>, v1: Vector2, v2: Vector2, v3: Vector2, color: Color): Unit
+	func ImageDrawTriangleEx(dst: CPointer<Image>, v1: Vector2, v2: Vector2, v3: Vector2, c1: Color, c2: Color, c3: Color): Unit
+	func ImageDrawTriangleLines(dst: CPointer<Image>, v1: Vector2, v2: Vector2, v3: Vector2, color: Color): Unit
+	func ImageDrawTriangleFan(dst: CPointer<Image>, points: CPointer<Vector2>, pointCount: Int32, color: Color): Unit
+	func ImageDrawTriangleStrip(dst: CPointer<Image>, points: CPointer<Vector2>, pointCount: Int32, color: Color): Unit
+	func ImageDraw(dst: CPointer<Image>, src: Image, srcRec: Rectangle, dstRec: Rectangle, tint: Color): Unit
+	func ImageDrawText(dst: CPointer<Image>, text: CString, posX: Int32, posY: Int32, fontSize: Int32, color: Color): Unit
+	func ImageDrawTextEx(dst: CPointer<Image>, font: Font, text: CString, position: Vector2, fontSize: Float32, spacing: Float32, tint: Int32): Unit
 	//-----//
+
 	//-----\\
+	func LoadTexture(fileName: CString): Texture2D
+	func LoadTextureFromImage(image: Image): Texture2D
+	func LoadTextureCubemap(image: Image, layout: Int32): TextureCubemap
+	func LoadRenderTexture(width: Int32, height: Int32): RenderTexture2D
+	func IsTextureValid(texture: Texture2D): Bool
+	func UnloadTexture(texture: Texture2D): Unit
+	func IsRenderTextureValid(target: RenderTexture2D): Bool
+	func UnloadRenderTexture(target: RenderTexture2D): Bool
+	func UpdateTexture(texture: Texture2D, pixels: CPointer<Unit>): Unit
+	func UpdateTextureRec(texture: Texture2D, rec: Rectangle, pixels: CPointer<Unit>): Unit
+	//-----//
+
+	//-----\\
+	func GenTextureMipmaps(texture: CPointer<Texture2D>): Unit
+	func SetTextureFilter(texture: Texture2D, filter: Int32): Unit
+	func SetTextureWrap(texture: Texture2D, wrap: Int32): Unit
+	//-----//
+
+	//-----\\
+	func DrawTexture(texture: Texture2D, posX: Int32, posY: Int32, tint: Color): Unit
+	func DrawTextureV(texture: Texture2D, position: Vector2, tint: Color): Unit
+	func DrawTextureEx(texture: Texture2D, position: Vector2, rotation: Float32, scale: Float32, tint: Color): Unit
+	func DrawTextureRec(texture: Texture2D, source: Rectangle, position: Vector2, tint: Color): Unit
+	func DrawTexturePro(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: Vector2, rotation: Float32, color: Color): Unit
+	func DrawTextureNPatch(texture: Texture2D, nPatchInfo: NPatchInfo, dest: Rectangle, origin: Vector2, rotation: Float32, tint: Color): Unit
+	//-----//
+
+	//-----\\
+	func ColorIsEqual(col1: Color, col2: Color): Bool
+	func Fade(color: Color, alpha: Float32): Color
+	func ColorToInt(color: Color): Int32
+	func ColorNormalize(color: Color): Vector4
+	func ColorFromNormalized(normalized: Vector4): Color
+	func ColorToHSV(color: Color): Vector3
+	func ColorFromHSV(hue: Float32, saturation: Float32, value: Float32): Color
+	func ColorTint(color: Color, tint: Color): Color
+	func ColorBrightness(color: Color, factor: Float32): Color
+	func ColorContrast(color: Color, contrast: Float32): Color
+	func ColorAlpha(color: Color, alpha: Float32): Color
+	func ColorAlphaBlend(dst: Color, src: Color, tint: Color): Color
+	func ColorLerp(color1: Color, color2: Color, factor: Float32): Color
+	func GetColor(hexValue: UInt32): Color
+	func GetPixelColor(srcPtr: CPointer<Unit>, format: Int32): Color
+	func SetPixelColor(dstPtr: CPointer<Unit>, color: Color, format: Int32): Unit
+	func GetPixelDataSize(width: Int32, height: Int32, format: Int32): Int32
 	//-----//
 	//-----------------------------//
 
 
-	//-----\\
-	//-----//
+
 	//-----------------------------\\
+	//-----\\
+	func GetFontDefault(): Font
+	func LoadFont(fileName: CString): Font
+	func LoadFontEx(fileName: CString, fontSize: Int32, codePoints: CPointer<Int32>, codepointCount: Int32): Font
+	func LoadFontFromImage(image: Image, key: Color, firstChar: Int32): Font
+	func LoadFontFromMemory(fileType: CString, fileData: CString, dataSize: Int32, fontSize: Int32, codepoints: CPointer<Int32>, codepointCount: Int32): Font
+	func IsFontValid(font: Font): Bool
+	func LoadFontData(fileData: CString, dataSize: Int32, fontSize: Int32, codepoints: CPointer<Int32>, codepointCount: Int32, Type: Int32, glyphCount: CPointer<Int32>): GlyphInfo
+	func GenImageFontAtlas(glyphs: CPointer<GlyphInfo>, glyphRecs: CPointer<CPointer<Rectangle>>, glyphCount: Int32, fontSize: Int32, padding: Int32, packMethod: Int32): Image
+	func UnloadFontData(glyphs: CPointer<GlyphInfo>, glyphCount: Int32): Unit
+	func UnloadFont(font: Font): Unit
+	func ExportFontAsCode(font: Font, fileName: CString): Bool
+	//-----//
+
+	//-----\\
+	func DrawFPS(posX: Int32, posY: Int32): Unit
+	func DrawText(text: CString, posX: Int32, posY: Int32, fontSize: Int32, color: Color): Unit
+	func DrawTextEx(font: Font, text: CString, position: Vector2, fontSize: Float32, spacing: Float32, tint: Color): Unit
+	func DrawTextPro(font: Font, text: CString, position: Vector2, origin: Vector2, rotation: Float32, fontSize: Float32, spacing: Float32, tint: Color): Unit
+	func DrawTextCodepoint(font: Font, codepoint: Int32, position: Vector2, fontSize: Float32, tint: Color): Unit
+	func DrawTextCodepoints(font: Font, codepoints: CPointer<Int32>, codepointCount: Int32, position: Vector2, fontSize: Float32, spacing: Float32, tint: Color): Unit
+	//-----//
+
+	//-----\\
+	func SetTextLineSpacing(spacing: Int32): Unit
+	func MeasureText(text: CString, fontSize: Int32): Int32
+	func MeasureTextEx(font: Font, text: CString, fontSize: Float32, spacing: Float32): Vector2
+	func GetGlyphIndex(font: Font, codepoint: Int32): Int32
+	func GetGlyphInfo(font: Font, codepoint: Int32): GlyphInfo
+	func GetGlyphAtlasRec(font: Font, codepoint: Int32): Rectangle
+	//-----//
+
+	//-----\\
+	func LoadUTF8(codepoints: CPointer<Int32>, length: Int32): CString
+	func UnloadUTF8(text: CString): Unit
+	func LoadCodepoints(text: CString, count: CPointer<Int32>): CPointer<Int32>
+	func UnloadCodepoints(codepoints: CPointer<Int32>): Unit
+	func GetCodepointCount(text: CString): Int32
+	func GetCodepoint(text: CString, codepointSize: CPointer<Int32>): Int32
+	func GetCodepointNext(text: CString, codepointSize: CPointer<Int32>): Int32
+	func GetCodepointPrevious(text: CString, codepointSize: CPointer<Int32>): Int32
+	func CodepointToUTF8(codepoint: Int32, utf8Size: CPointer<Int32>): CString
+	//-----//
+
+	//-----\\
+	func LoadTextLines(text: CString, count: CPointer<Int32>): CPointer<CString>
+	func UnloadTextLines(text: CPointer<CString>, lineCount: Int32): Unit
+	func TextCopy(dst: CString, src: CString): Int32
+	func TextIsEqual(text1: CString, text2: CString): Bool
+	func TextLength(text: CString): UInt32
+	func TextFormat(text: CString, ...): CString
+	func TextSubtext(text: CString, position: Int32, length: Int32): CString
+	func TextRemoveSpaces(text: CString): CString
+	func GetTextBetween(text: CString, begin: CString, end: CString): CString
+	func TextReplace(text: CString, search: CString, replacement: CString): CString
+	func TextReplaceBetween(text: CString, begin: CString, end: CString, replacement: CString): CString
+	func TextInsert(text: CString, insert: CString, position: Int32): CString
+	func TextJoin(textlist: CPointer<CString>, count: Int32, delimiter: CString): CString
+	func TextSplit(text: CString, delimiter: Int8, count: CPointer<Int32>): CPointer<CString>
+	func TextAppend(text: CString, append: CString, position: CPointer<Int32>): Unit
+	func TextFindIndex(text: CString, search: CString): Int32
+	func TextToUpper(text: CString): CString
+	func TextToLower(text: CString): CString
+	func TextToPascal(text: CString): CString
+	func TextToSnake(text: CString): CString
+	func TextToCamel(text: CString): CString
+	func TextToInteger(test: CString): Int32
+	func TextToFloat(text: CString): Float32
+	//-----//
 	//-----------------------------//
+
+
+	//-----------------------------\\
+	//-----\\
+	//-----//
+
+	//-----\\
+	//-----//
+
+	//-----\\
+	//-----//
+
+	//-----\\
+	//-----//
+	//-----------------------------//
+
+
 }
