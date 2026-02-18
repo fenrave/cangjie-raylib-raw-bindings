@@ -62,6 +62,8 @@ package cangjieraylib
 	}
 }
 
+type Quaternion = Vector4
+
 @C struct Matrix {
 	var m0: Float32
 	var m1: Float32
@@ -96,6 +98,7 @@ package cangjieraylib
 
 	}
 }
+
 
 @C struct Ray {
 	var position: Vector3 = Vector3(0.0,0.0,0.0)
@@ -143,6 +146,8 @@ package cangjieraylib
 	}
 }
 
+type Camera = Camera3D
+
 @C struct Image {
 	var data: CPointer<Unit> = CPointer<Unit>()
 	var width: Int32 = 0
@@ -173,6 +178,82 @@ type RenderTexture2D = RenderTexture
 @C struct Shader {
 	var id: UInt32 = 0
 	var locs = CPointer<Int32>()
+}
+
+@C struct Mesh {
+	var vertexCount: Int32 = 0
+	var triangleCount: Int32 = 0
+	
+	var vertices = CPointer<Float32>()
+	var texcoords = CPointer<Float32>()
+	var texcoords2 = CPointer<Float32>()
+	var normals = CPointer<Float32>()
+	var tangents = CPointer<Float32>()
+
+	var colors = CPointer<UInt8>()
+	var indices = CPointer<UInt16>()
+
+	var animVertices = CPointer<Float32>()
+	var animNormals = CPointer<Float32>()
+	var boneIds = CPointer<UInt8>()
+	var boneWeights = CPointer<Float32>()
+	var boneMatrices = CPointer<Float32>()
+	var boneCount: Int32 = 0
+
+	var vaoId: UInt32 = 0
+	var vboId = CPointer<UInt32>()
+}
+
+@C struct MaterialMap {
+	var texture: Texture2D = Texture2D()
+	var color: Color = Color(0,0,0,255)
+	var value: Float32 = 0.0
+}
+
+@C struct Material {
+	var shader: Shader = Shader()
+	var maps = CPointer<MaterialMap>()
+	var params = VArray<Float32, $4>(repeat: 0.0)
+}
+
+@C struct BoundingBox {
+	var min = Vector3(0.0,0.0,0.0)
+	var max = Vector3(0.0,0.0,0.0)
+}
+
+@C struct Transform {
+	var translation = Vector3(0.0,0.0,0.0)
+	var rotation = Quaternion(0.0,0.0,0.0,0.0)
+	var scale = Vector3(0.0,0.0,0.0)
+}
+
+@C struct BoneInfo {
+	var name = VArray<UInt8, $32>(repeat: 0)
+	var parent: Int32 = 0
+}
+
+@C struct Model {
+	var transform: Matrix = unsafe { zeroValue<Matrix>() }
+
+	var meshCount: Int32 = 0
+	var materialCount: Int32 = 0
+	var meshes = CPointer<Mesh>()
+	var materials = CPointer<Material>()
+	var meshMaterial: Int32 = 0
+
+	var boneCount: Int32 = 0
+	var bones = CPointer<BoneInfo>()
+	var bindPose = CPointer<Transform>()
+
+}
+
+@C struct ModelAnimation {
+	var name = VArray<UInt8, $32>(repeat: 0)
+
+	var boneCount: Int32 = 0
+	var frameCount: Int32 = 0
+	var bones = CPointer<BoneInfo>()
+	var framePoses = CPointer<CPointer<Transform>>()
 }
 
 @C struct NPatchInfo {
@@ -249,4 +330,37 @@ type RenderTexture2D = RenderTexture
 	var texture: Texture2D = Texture2D()
 	var recs = CPointer<Rectangle>()
 	var glyphs = CPointer<GlyphInfo>()
+}
+
+type AudioCallback = CFunc<(bufferData: CPointer<Unit>, frames: UInt32) -> Unit>
+
+@C struct Wave {
+	var frameCount: UInt32 = 0
+	var sampleRate: UInt32 = 0
+	var sampleSize: UInt32 = 0
+	var channels: UInt32 = 0
+	var data = CPointer<Unit>()
+}
+
+@C struct AudioStream {
+	var buffer = CPointer<Unit>()
+	var processor = CPointer<Unit>()
+
+	var sampleRate: UInt32 = 0
+	var sampleSize: UInt32 = 0
+	var channels: UInt32 = 0
+}
+
+@C struct Sound {
+	var stream: AudioStream = AudioStream()
+	var frameCount: UInt32 = 0
+}
+
+@C struct Music {
+	var stream: AudioStream = AudioStream()
+	var frameCount: UInt32 = 0
+	var looping: Bool = false
+
+	var ctxType: Int32 = 0
+	var ctxData = CPointer<Unit>()
 }

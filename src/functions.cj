@@ -22,7 +22,7 @@ foreign {
 	func MinimizeWindow(): Unit
 	func RestoreWindow(): Unit
 	//-----//
-	
+
 	//-----\\
 	func SetWindowIcon(image: Image): Unit
 	func SetWindowIcons(image: CPointer<Image>, count: Int32): Unit
@@ -599,17 +599,188 @@ foreign {
 
 	//-----------------------------\\
 	//-----\\
+	func DrawLine3D(startPos: Vector3, endPos: Vector3, color: Color): Unit
+	func DrawPoint3D(position: Vector3, color: Color): Unit
+	func DrawCircle3D(center: Vector3, radius: Float32, rotationAxis: Vector3, rotationAngle: Float32, color: Color): Unit
+	func DrawTriangle3D(v1: Vector3, v2: Vector3, v3: Vector3, color: Color): Unit
+	func DrawTriangleStrip3D(points: CPointer<Vector3>, pointCount: Int32, color: Color): Unit
+	func DrawCube(position: Vector3, width: Float32, height: Float32, length: Float32, color: Color): Unit
+	func DrawCubeV(position: Vector3, size: Vector3, color: Color): Unit
+	func DrawCubeWires(position: Vector3, width: Float32, height: Float32, length: Float32, color: Color): Unit
+	func DrawCubeWiresV(position: Vector3, size: Vector3, color: Color): Unit
+	func DrawSphere(centerPos: Vector3, radius: Float32, color: Color): Unit
+	func DrawSphereEx(centerPos: Vector3, radius: Float32, rings: Int32, slices: Int32, color: Color): Unit
+	func DrawSphereWires(centerPos: Vector3, radius: Float32, rings: Int32, slices: Int32, color: Color): Unit
+	func DrawCylinder(position: Vector3, radiusTop: Float32, radiusBottom: Float32, height: Float32, slices: Int32, color: Color): Unit
+	func DrawCylinderEx(startPos: Vector3, endPos: Vector3, startRadius: Float32, endRadius: Float32, sides: Int32, color: Color): Unit
+	func DrawCylinderWiresEx(startPos: Vector3, endPos: Vector3, startRadius: Float32, endRadius: Float32, sides: Int32, color: Color): Unit
+	func DrawCapsule(startPos: Vector3, endPos: Vector3, radius: Float32, slices: Int32, rings: Int32, color: Color): Unit
+	func DrawCapsuleWires(startPos: Vector3, endPos: Vector3, radius: Float32, slices: Int32, rings: Int32, color: Color): Unit
+	func DrawPlane(centerPos: Vector3, size: Vector2, color: Color): Unit
+	func DrawRay(ray: Ray, color: Color): Unit
+	func DrawGrid(slices: Int32, spacing: Float32): Unit
 	//-----//
 
 	//-----\\
+	func LoadModel(fileName: CString): Model
+	func LoadModelFromMesh(mesh: Mesh): Model
+	func IsModelValid(model: Model): Bool
+	func UnloadModel(model: Model): Unit
+	func GetModelBoundingBox(model: Model): BoundingBox
 	//-----//
 
 	//-----\\
+	func DrawModel(model: Model, position: Vector3, scale: Float32, tint: Color): Unit
+	func DrawModelEx(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: Float32, scale: Vector3, tint: Color): Unit
+	func DrawModelWires(model: Model, position: Vector3, scale: Float32, tint: Color): Unit
+	func DrawModelWiresEx(model: Model, position: Vector3, rotationAxos: Vector3, rotationAngle: Float32, scale: Vector3, tint: Color): Unit
+	func DrawModelPoints(model: Model, position: Vector3, scale: Float32, tint: Color): Unit
+	func DrawModelPointsEx(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: Float32, scale: Vector3, tint: Color): Unit
+	func DrawBoundingBox(box: BoundingBox, color: Color): Unit
+	func DrawBillboard(camera: Camera2D, texture: Texture2D, position: Vector3, scale: Float32, tint: Color): Unit
+	func DrawBillboardRec(camera: Camera, texture: Texture2D, source: Rectangle, position: Vector3, size: Vector2, tint: Color): Unit
+	func DrawBillboardPro(camera: Camera, texture: Texture2D, source: Rectangle, position: Vector3, up: Vector3, size: Vector2, origin: Vector2, rotation: Float32, tint: Color): Unit
 	//-----//
 
 	//-----\\
+	func UploadMesh(mesh: CPointer<Mesh>, dynamic: Bool): Unit
+	func UpdateMeshBuffer(mesh: Mesh, index: Int32, data: CPointer<Unit>, dataSize: Int32, offset: Int32): Unit
+	func UnloadMesh(mesh: Mesh): Unit
+	func DrawMesh(mesh: Mesh, material: Material, transform: Matrix): Unit
+	func DrawMeshInstanced(mesh: Mesh, material: Material, transforms: CPointer<Matrix>, instances: Int32): Unit
+	func GetMeshBoundingBox(mesh: Mesh): BoundingBox
+	func GetMeshTangents(mesh: CPointer<Mesh>): Unit
+	func ExportMesh(mesh: Mesh, fileName: CString): Bool
+	func ExportMeshAsCode(mesh: Mesh, fileName: CString): Bool
+	//-----//
+
+	//-----\\
+	func GenMeshPoly(sides: Int32, radius: Float32): Mesh
+	func GenMeshPlane(width: Float32, length: Float32, resX: Int32, resZ: Int32): Mesh
+	func GenMeshCube(width: Float32, height: Float32, length: Float32): Mesh
+	func GenMeshSphere(radius: Float32, rings: Int32, slices: Int32): Mesh
+	func GenMeshHemiSphere(radius: Float32, rings: Int32, slices: Int32): Mesh
+	func GenMeshCylinder(radius: Float32, height: Float32, slices: Int32): Mesh
+	func GenMeshCone(radius: Float32, height: Float32, slices: Int32): Mesh
+	func GenMeshTorus(radius: Float32, size: Float32, radSeg: Int32, sides: Int32): Mesh
+	func GenMeshKnot(radius: Float32, size: Float32, radSeg: Int32, sides: Int32): Mesh
+	func GenMeshHeightmap(heightmap: Image, size: Vector3): Mesh
+	func GenMeshCubicmap(cubicmap: Image, cubeSize: Vector3): Mesh
+	//-----//
+
+	//-----\\
+	func LoadMaterials(fileName: CString, materialCount: CPointer<Int32>): Material
+	func LoadMaterialDefault(): Material
+	func IsMaterialValid(material: Material): Bool
+	func UnloadMaterial(material: Material): Unit
+	func SetMaterialTexture(material: CPointer<Material>, mapType: Int32, texture: Texture2D): Unit
+	func SetModelMeshMaterial(model: CPointer<Model>, meshId: Int32, materialId: Int32): Unit
+	//-----//
+
+	//-----\\
+	func LoadModelAnimations(fileName: CString, animCount: CPointer<Int32>): ModelAnimation
+	func UpdateMdoelAnimation(model: Model, anim: ModelAnimation, frame: Int32): Unit
+	func UpdateModelAnimationBones(model: Model, anin: ModelAnimation, frame: Int32): Unit
+	func UnloadModelAnimation(anim: ModelAnimation): Unit
+	func UnloadModelAnimations(animations: CPointer<ModelAnimation>, animCount: Int32): Unit
+	func IsModelAnimationValid(model: Model, anim: ModelAnimation): Bool
+	//-----//
+
+	//-----\\
+	func CheckCollisionSpheres(center1: Vector3, radius1: Float32, center2: Vector3, radius: Float32): Bool
+	func CheckCollisionBoxes(box1: BoundingBox, box2: BoundingBox): Bool
+	func CheckCollisionBoxSphere(box: BoundingBox, center: Vector3, radius: Float32): Bool
+	func GetRayCollisionSphere(ray: Ray, center: Vector3, radius: Float32): RayCollision
+	func GetRayCollisionBox(ray: Ray, box: BoundingBox): RayCollision
+	func GetRayCollisionMesh(ray: Ray, mesh: Mesh, transform: Matrix): RayCollision
+	func GetRayCollisionTriangle(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3): RayCollision
+	func GetRayCollisionQuad(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3): RayCollision
 	//-----//
 	//-----------------------------//
 
+	//-----------------------------\\
+	//-----\\
+	func InitAudioDevice(): Unit
+	func CloseAudioDevice(): Unit
+	func IsAudioDeviceReady(): Bool
+	func SetMasterVolume(volume: Float32): Unit
+	func GetMasterVolume(): Float32
+	//-----//
+	
+	//-----\\
+	func LoadWave(fileName: CString): Wave
+	func LoadWaveFromMemory(fileType: CString, fileData: CString, dataSize: Int32): Wave
+	func IsWaveValid(wave: Wave): Bool
+	func LoadSound(fileName: CString): Sound
+	func LoadSoundFromWave(wave: Wave): Sound
+	func LoadSoundAlias(source: Sound): Sound
+	func IsSoundValid(sound: Sound): Bool
+	func UpdateSound(sound: Sound, data: CPointer<Unit>, sampleCount: Int32): Unit
+	func UnloadWave(wave: Wave): Unit
+	func UnloadSound(sound: Sound): Unit
+	func UnloadSoundAlias(alias: Sound): Unit
+	func ExportWave(wave: Wave, fileName: CString): Bool
+	func ExportWaveAsCode(wave: Wave, fileName: CString): Bool
+	//-----//
 
+	//-----\\
+	func PlaySound(sound: Sound): Unit
+	func StopSound(sound: Sound): Unit
+	func PauseSound(sound: Sound): Unit
+	func ResumeSound(sound: Sound): Unit
+	func IsSoundPlaying(sound: Sound): Unit
+	func SetSoundVolume(sound: Sound, volume: Float32): Unit
+	func SetSoundPitch(sound: Sound, pitch: Float32): Unit
+	func SetSoundPan(sound: Sound, pan: Float32): Unit
+	func WaveCopy(wave: Wave): Wave
+	func WaveCrop(wave: CPointer<Wave>, initFrame: Int32, finalFrame: Int32): Unit
+	func WaveFormat(wave: CPointer<Wave>, sampleRate: Int32, sampleSize: Int32, channels: Int32): Unit
+	func LoadWaveSamples(wave: Wave): CPointer<Float32>
+	func UnloadWaveSamples(samples: CPointer<Float32>): Unit
+	//-----//
+
+	//-----\\
+	func LoadMusicStream(fileName: CString): Music
+	func LoadMusicStreamFromMemory(fileType: CString, data: CString, dataSize: Int32): Music
+	func IsMusicValid(music: Music): Bool
+	func UnloadMusicStream(music: Music): Unit
+	func PlayMusicStream(music: Music): Unit
+	func IsMusicStreamPlaying(music: Music): Bool
+	func UpdateMusicStream(music: Music): Unit
+	func StopMusicStream(music: Music): Unit
+	func PauseMusicStream(music: Music): Unit
+	func ResumeMusicStream(music: Music): Unit
+	func SeekMusicStream(music: Music, position: Float32): Unit
+	func SetMusicVolume(music: Music, volume: Float32): Unit
+	func SetMusicPitch(music: Music, pitch: Float32): Unit
+	func SetMusicPan(music: Music, pan: Float32): Unit
+	func GetMusicTimeLength(music: Music): Float32
+	func GetMusicTimePlayed(music: Music): Float32
+	//-----//
+
+	//-----\\
+	func LoadAudioStream(sampleRate: UInt32, sampleSize: UInt32, channels: UInt32): AudioStream
+	func IsAudioStreamValid(stream: AudioStream): Bool
+	func UnloadAudioStream(stream: AudioStream): Unit
+	func UpdateAudioStream(stream: AudioStream, data: CPointer<Unit>, frameCount: Int32): Unit
+	func IsAudioStreamProcessed(stream: AudioStream): Bool
+	func PlayAudioStream(stream: AudioStream): Unit
+	func PauseAudioStream(stream: AudioStream): Unit
+	func ResumeAudioStream(stream: AudioStream): Unit
+	func IsAudioStreamPlaying(stream: AudioStream): Bool
+	func StopAudioStream(stream: AudioStream): Unit
+	func SetAudioStreamVolume(stream: AudioStream, volume: Float32): Unit
+	func SetAudioStreamPitch(stream: AudioStream, pitch: Float32): Unit
+	func SetAudioStreamPan(stream: AudioStream, pan: Float32): Unit
+	func SetAudioStreamBufferSizeDefault(size: Int32): Unit
+	func SetAudioStreamCallback(stream: AudioStream, callback: AudioCallback): Unit
+	//-----//
+
+	//-----\\
+	func AttachAudioStreamProcessor(stream: AudioStream, processor: AudioCallback): Unit
+	func DetachAudioStreamProcessor(stream: AudioStream, processor: AudioCallback): Unit
+	func AttachAudioMixedProcessor(processor: AudioCallback): Unit
+	func DetachAudioMixedProcessor(processor: AudioCallback): Unit
+	//-----//
+	//-----------------------------//
 }
