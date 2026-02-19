@@ -1,6 +1,6 @@
 package cangjieraylib.defs
 
-/**
+/*
 
 	Due to constraints with macros & cangjie enums, it is far easier to represent C enums as structs, or some kind of object that can retain info.
 	Ideally the compiler should pick up on these values being effectively "constant," and be pre-processed into their number, rather than some indirection to the struct value.
