@@ -5,8 +5,8 @@
   version = "1.0.0"
   target-dir = ""
   src-dir = ""
-  output-type = "executable"
-  compile-option = "-Woff unused -B /usr/lib/gcc/x86_64-redhat-linux/15/ -Llib/ -lraylib"
+  output-type = "dynamic"
+  compile-option = ""
   override-compile-option = ""
   link-option = ""
   package-configuration = {}
