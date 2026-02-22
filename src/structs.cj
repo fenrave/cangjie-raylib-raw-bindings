@@ -5,14 +5,14 @@ package cangjieraylib
 	All structs were added recursively as I wrote out the functions, there might be some inconsistent formatting that needs to be rectified.
 	There may also be missing(?) structs, but all of the ones that the functions depend on are in here.
 
-	Structs with proper initializers are ones I've "personally" deemed to be ones meant to be constructed by the end user, as I didn't want to write out them all out.
+	structs with proper initializers are ones I've "personally" deemed to be ones meant to be conpublic structed by the end user, as I didn't want to write out them all out.
 	Presently I am unaware of a better way to "quickly" initialize a struct, as far as I can tell, ->
 	-> you're supposed to either turn them into a public function or just do the initializer thing.
 
 */
 
 
-@C struct Color {
+@C public struct Color {
 	var r: UInt8 = 0
 	var g: UInt8 = 0
 	var b: UInt8 = 0
@@ -26,7 +26,7 @@ package cangjieraylib
 	}
 }
 
-@C struct Rectangle {
+@C public struct Rectangle {
 	var x: Float32 = 0.0
 	var y: Float32 = 0.0
 	var width: Float32 = 0.0
@@ -40,7 +40,7 @@ package cangjieraylib
 	}
 }
 
-@C struct Vector2 {
+@C public struct Vector2 {
 	var x: Float32 = 0.0
 	var y: Float32 = 0.0
 
@@ -50,7 +50,7 @@ package cangjieraylib
 	}
 }
 
-@C struct Vector3 {
+@C public struct Vector3 {
 	var x: Float32 = 0.0
 	var y: Float32 = 0.0
 	var z: Float32 = 0.0
@@ -61,7 +61,7 @@ package cangjieraylib
 	}
 }
 
-@C struct Vector4 {
+@C public struct Vector4 {
 	var x: Float32 = 0.0
 	var y: Float32 = 0.0
 	var z: Float32 = 0.0
@@ -76,7 +76,7 @@ package cangjieraylib
 
 type Quaternion = Vector4
 
-@C struct Matrix {
+@C public struct Matrix {
 	var m0: Float32
 	var m1: Float32
 	var m2: Float32
@@ -112,7 +112,7 @@ type Quaternion = Vector4
 }
 
 
-@C struct Ray {
+@C public struct Ray {
 	var position: Vector3 = Vector3(0.0,0.0,0.0)
 	var direction: Vector3 = Vector3(0.0,0.0,0.0)
 	init(p: Vector3, d: Vector3) {
@@ -121,14 +121,14 @@ type Quaternion = Vector4
 	}
 }
 
-@C struct RayCollision {
+@C public struct RayCollision {
 	var hit: Bool = false
 	var distance: Float32 = 0.0
 	var point: Vector3 = Vector3(0.0,0.0,0.0)
 	var normal: Vector3 = Vector3(0.0,0.0,0.0)
 }
 
-@C struct Camera2D {
+@C public struct Camera2D {
 	var offset: Vector2 = Vector2(0.0, 0.0)
 	var target: Vector2 = Vector2(0.0, 0.0)
 	var rotation: Float32 = 0.0
@@ -142,7 +142,7 @@ type Quaternion = Vector4
 	}
 }
 
-@C struct Camera3D {
+@C public struct Camera3D {
 	var position: Vector3 = Vector3(0.0,0.0,0.0)
 	var target = Vector3(0.0,0.0,0.0)
 	var up = Vector3(0.0,0.0,0.0)
@@ -160,7 +160,7 @@ type Quaternion = Vector4
 
 type Camera = Camera3D
 
-@C struct Image {
+@C public struct Image {
 	var data = CPointer<Unit>()
 	var width: Int32 = 0
 	var height: Int32 = 0
@@ -168,7 +168,7 @@ type Camera = Camera3D
 	var format: Int32 = 0
 }
 
-@C struct Texture {
+@C public struct Texture {
 	var id: UInt32 = 0
 	var width: Int32 = 0
 	var height: Int32 = 0
@@ -179,7 +179,7 @@ type Camera = Camera3D
 type Texture2D = Texture
 type TextureCubemap = Texture
 
-@C struct RenderTexture {
+@C public struct RenderTexture {
 	var id: UInt32 = 0
 	var texture: Texture = Texture()
 	var depth: Texture = Texture()
@@ -187,12 +187,12 @@ type TextureCubemap = Texture
 
 type RenderTexture2D = RenderTexture
 
-@C struct Shader {
+@C public struct Shader {
 	var id: UInt32 = 0
 	var locs = CPointer<Int32>()
 }
 
-@C struct Mesh {
+@C public struct Mesh {
 	var vertexCount: Int32 = 0
 	var triangleCount: Int32 = 0
 	
@@ -216,35 +216,35 @@ type RenderTexture2D = RenderTexture
 	var vboId = CPointer<UInt32>()
 }
 
-@C struct MaterialMap {
+@C public struct MaterialMap {
 	var texture: Texture2D = Texture2D()
 	var color: Color = Color(0,0,0,255)
 	var value: Float32 = 0.0
 }
 
-@C struct Material {
+@C public struct Material {
 	var shader: Shader = Shader()
 	var maps = CPointer<MaterialMap>()
 	var params = VArray<Float32, $4>(repeat: 0.0)
 }
 
-@C struct BoundingBox {
+@C public struct BoundingBox {
 	var min = Vector3(0.0,0.0,0.0)
 	var max = Vector3(0.0,0.0,0.0)
 }
 
-@C struct Transform {
+@C public struct Transform {
 	var translation = Vector3(0.0,0.0,0.0)
 	var rotation = Quaternion(0.0,0.0,0.0,0.0)
 	var scale = Vector3(0.0,0.0,0.0)
 }
 
-@C struct BoneInfo {
+@C public struct BoneInfo {
 	var name = VArray<UInt8, $32>(repeat: 0)
 	var parent: Int32 = 0
 }
 
-@C struct Model {
+@C public struct Model {
 	var transform: Matrix = unsafe { zeroValue<Matrix>() }
 
 	var meshCount: Int32 = 0
@@ -259,7 +259,7 @@ type RenderTexture2D = RenderTexture
 
 }
 
-@C struct ModelAnimation {
+@C public struct ModelAnimation {
 	var name = VArray<UInt8, $32>(repeat: 0)
 
 	var boneCount: Int32 = 0
@@ -268,7 +268,7 @@ type RenderTexture2D = RenderTexture
 	var framePoses = CPointer<CPointer<Transform>>()
 }
 
-@C struct NPatchInfo {
+@C public struct NPatchInfo {
 	var source: Rectangle = Rectangle(0.0,0.0,0.0,0.0)
 	var left: Int32 = 0
 	var top: Int32 = 0
@@ -286,7 +286,7 @@ type RenderTexture2D = RenderTexture
 	}
 }
 
-@C struct VrDeviceInfo {
+@C public struct VrDeviceInfo {
 	var hResolution: Int32 = 0
 	var vResolution: Int32 = 0
 	var hScreenSize: Float32 = 0.0
@@ -298,7 +298,7 @@ type RenderTexture2D = RenderTexture
 	var chromaAbcorrection = VArray<Float32, $4>(repeat: 0.0)
 }
 
-@C struct VrStereoConfig {
+@C public struct VrStereoConfig {
 	var projection = VArray<Matrix, $2>(repeat: unsafe { zeroValue<Matrix>() })
 	var viewOffset = VArray<Matrix, $2>(repeat: unsafe { zeroValue<Matrix>() })
 	var leftLensCenter = VArray<Float32, $2>(repeat: 0.0)
@@ -309,25 +309,25 @@ type RenderTexture2D = RenderTexture
 	var scaleIn = VArray<Float32, $2>(repeat: 0.0)
 }
 
-@C struct FilePathList {
+@C public struct FilePathList {
 	var count: UInt32 = 0
 	var paths: CPointer<CString> = unsafe { zeroValue<CPointer<CString>>() }
 }
 
-@C struct AutomationEvent {
+@C public struct AutomationEvent {
 	var frame: UInt32 = 0
 	//uppercased because 'type' is a reserved keyword
 	var Type: UInt32 = 0
 	var params = VArray<Int32, $4>(repeat: 0)
 }
 
-@C struct AutomationEventList {
+@C public struct AutomationEventList {
 	var capacity: UInt32 = 0
 	var count: UInt32 = 0
 	var events = CPointer<AutomationEventList>()
 }
 
-@C struct GlyphInfo {
+@C public struct GlyphInfo {
 	var value: Int32 = 0
 	var offsetX: Int32 = 0
 	var offsetY: Int32 = 0
@@ -335,7 +335,7 @@ type RenderTexture2D = RenderTexture
 	var image: Image = Image()
 }
 
-@C struct Font {
+@C public struct Font {
 	var baseSize: Int32 = 0
 	var glyphCount: Int32 = 0
 	var glyphPadding: Int32 = 0
@@ -346,7 +346,7 @@ type RenderTexture2D = RenderTexture
 
 type AudioCallback = CFunc<(bufferData: CPointer<Unit>, frames: UInt32) -> Unit>
 
-@C struct Wave {
+@C public struct Wave {
 	var frameCount: UInt32 = 0
 	var sampleRate: UInt32 = 0
 	var sampleSize: UInt32 = 0
@@ -354,7 +354,7 @@ type AudioCallback = CFunc<(bufferData: CPointer<Unit>, frames: UInt32) -> Unit>
 	var data = CPointer<Unit>()
 }
 
-@C struct AudioStream {
+@C public struct AudioStream {
 	var buffer = CPointer<Unit>()
 	var processor = CPointer<Unit>()
 
@@ -363,12 +363,12 @@ type AudioCallback = CFunc<(bufferData: CPointer<Unit>, frames: UInt32) -> Unit>
 	var channels: UInt32 = 0
 }
 
-@C struct Sound {
+@C public struct Sound {
 	var stream: AudioStream = AudioStream()
 	var frameCount: UInt32 = 0
 }
 
-@C struct Music {
+@C public struct Music {
 	var stream: AudioStream = AudioStream()
 	var frameCount: UInt32 = 0
 	var looping: Bool = false

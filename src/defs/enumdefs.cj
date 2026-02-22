@@ -11,7 +11,7 @@ package cangjieraylib.defs
 
 */
 
-
+// cjlint-ignore -start !G.NAM.03 !G.NAM.04 !G.NAM.05 !G.DCL.02
 public struct __TraceLog_Enums {
 	public let ALL: Int32 = 0
 	public let TRACE: Int32 = 1
@@ -373,3 +373,4 @@ public struct __NPatchLayout {
 	public let THREE_PATCH_VERTICAL		= 1_i32
 	public let THREE_PATCH_HORIZONTAL	= 2_i32
 }
+// cjlint-ignore -end
